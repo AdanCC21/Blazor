@@ -1,0 +1,30 @@
+﻿@page "/pokemons"
+@using Entities.Models
+@using Services;
+
+@inject S_Pokemon pokeService;
+
+<h3>Pokemons</h3>
+
+<ul>
+    @foreach (var currentPok in pokeList)
+    {
+        <li>@currentPok.name</li>
+    }
+</ul>
+
+@code {
+    public List<E_Pokemon> pokeList;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            pokeList = await pokeService.GetAllPokemons();
+        }
+        catch(Exception ex)
+        {
+            Console.WriteLine($"Error: {ex.Message}");
+        }
+    }
+}

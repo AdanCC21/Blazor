@@ -7,6 +7,6 @@ namespace Data
     {
         public MyDbContext(DbContextOptions<MyDbContext> options) : base(options){}
 
-        public DbSet<Pokemon> MyPokemonEntity { get; set; }
+        public DbSet<E_Pokemon> MyPokemonEntity { get; set; }
     }
 }

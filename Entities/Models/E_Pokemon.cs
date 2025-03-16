@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Entities.Models
 {
-    public class Pokemon
+    public class E_Pokemon
     {
         public int id { get; set; }
         public string? name { get; set; }
