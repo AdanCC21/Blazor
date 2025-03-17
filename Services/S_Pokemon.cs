@@ -15,7 +15,23 @@ namespace Services
 
         public async Task<List<E_Pokemon>> GetAllPokemons()
         {
-            return await this._dbContext.MyPokemonEntity.ToListAsync();
+            var pokemons = await this._dbContext.MyPokemonEntity.ToListAsync();
+            return pokemons ?? new List<E_Pokemon>();  // Return an empty list if null
         }
+
+        public async Task<bool> insertPokemon(E_Pokemon pokemon)
+        {
+            try
+            {
+                _dbContext.Add(pokemon);
+                await _dbContext.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                return false;
+            }
+        } 
     }
 }

@@ -1,29 +1,37 @@
 ﻿@page "/pokemons"
 @using Entities.Models
-@using Services;
-
-@inject S_Pokemon pokeService;
+@using Services
+@inject S_Pokemon productService
 
 <h3>Pokemons</h3>
 
-<ul>
-    @foreach (var currentPok in pokeList)
-    {
-        <li>@currentPok.name</li>
-    }
-</ul>
+@if (pokeList == null)
+{
+    <p>Loading...</p>
+}
+else
+{
+    <ul>
+        @foreach (var pokemon in pokeList)
+        {
+            <li>@pokemon.name</li>
+        }
+    </ul>
+}
 
 @code {
-    public List<E_Pokemon> pokeList;
+    private List<E_Pokemon> pokeList = new List<E_Pokemon>();  // Initialize as an empty list
 
     protected override async Task OnInitializedAsync()
     {
         try
         {
-            pokeList = await pokeService.GetAllPokemons();
+            // Fetch data from the service
+            pokeList = await productService.GetAllPokemons();
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
+            // Handle error (logging, showing a message, etc.)
             Console.WriteLine($"Error: {ex.Message}");
         }
     }
